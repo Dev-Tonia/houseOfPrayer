@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CustomInput from "../common/CustomInput";
 import Card from "../common/Card";
 import useInput from "../../hooks/useInput";
@@ -9,8 +9,15 @@ export default function EventDetails({ getValue }) {
     eventDate: "",
     eventName: "",
   });
+  // Call getValue only when totalAmount changes
+  useEffect(() => {
+    getValue({
+      name: "eventDetails",
+      values: { ...values },
+    });
+  }, [values]);
 
-  getValue("eventDetails", values);
+  // getValue("eventDetails", values);
   return (
     <>
       {/* Event details */}

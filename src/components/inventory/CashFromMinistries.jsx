@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../common/Card";
 import CustomInput from "../common/CustomInput";
 import CustomTable from "../common/CustomTable";
+import Button from "../common/Button";
+import CountCard from "./CountCard";
 
 export default function CashFromMinistries({ getValue }) {
   const tableHeader = ["Amount", " Ministry", ""];
@@ -25,14 +27,23 @@ export default function CashFromMinistries({ getValue }) {
 
   // Calculate total number of ministries and total amount
   const totalMinistries = inputs.filter(
-    (input) => input.ministry.trim() !== ""
+    (input) => input.ministry.trim() && input.amt.trim() !== ""
   ).length;
   const totalAmount = inputs.reduce((acc, input) => {
-    const amount = parseFloat(input.amt);
+    let amount;
+    if (input.ministry.trim() && input.amt.trim() !== "") {
+      amount = parseFloat(input.amt);
+    }
     return acc + (isNaN(amount) ? 0 : amount);
   }, 0);
 
-  getValue("cashFromMinistries", inputs);
+  // Call getValue only when totalAmount changes
+  useEffect(() => {
+    getValue({
+      name: "cashFromMinistries",
+      values: { ...inputs, amount: totalAmount },
+    });
+  }, [totalAmount]);
 
   return (
     <>
@@ -71,20 +82,22 @@ export default function CashFromMinistries({ getValue }) {
           ))}
         </CustomTable>
         <div>
-          <button
-            type="button"
-            className=" bg-blue-600 text-white py-2 px-3 rounded-lg outline-none"
-            onClick={addInput}
+          <Button
+            className={"bg-blue-600 text-white"}
+            type={"button"}
+            onClick={() => addInput()}
           >
             Add more Ministry
-          </button>
+          </Button>
         </div>
-        <p>
-          Total Ministry: <span>{totalMinistries}</span>
-        </p>
-        <p>
-          Total Amount: <span>${totalAmount.toFixed(2)}</span>
-        </p>
+        <div className=" py-3">
+          <CountCard>
+            Total Ministry: <span>{totalMinistries}</span>
+          </CountCard>
+          <CountCard>
+            Total Amount: <span>${totalAmount.toFixed(2)}</span>
+          </CountCard>
+        </div>
       </Card>
     </>
   );

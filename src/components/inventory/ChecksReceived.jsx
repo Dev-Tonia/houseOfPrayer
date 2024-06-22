@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../common/Card";
 import CustomInput from "../common/CustomInput";
 import CustomTable from "../common/CustomTable";
+import Button from "../common/Button";
+import CountCard from "./CountCard";
 
 export default function ChecksReceived({ getValue }) {
   const tableHeader = ["Check No", "Contributor", "Amount"];
@@ -32,17 +34,32 @@ export default function ChecksReceived({ getValue }) {
 
   // Calculate total number of checks
   const totalChecks = inputs.filter(
-    (input) => input.checkNo.trim() !== ""
+    (input) =>
+      input.checkNo.trim() &&
+      input.checkContributor.trim() &&
+      input.checkAmt.trim() !== ""
   ).length;
 
   // Calculate total amount of checks
   const totalAmount = inputs.reduce((acc, input) => {
-    const amount = parseFloat(input.checkAmt);
+    let amount;
+    if (
+      input.checkNo.trim() &&
+      input.checkContributor.trim() &&
+      input.checkAmt.trim() !== ""
+    ) {
+      amount = parseFloat(input.checkAmt);
+    }
     return acc + (isNaN(amount) ? 0 : amount);
   }, 0);
 
-  // passing the value to the parent component
-  getValue("checksReceived", inputs);
+  // Call getValue only when totalAmount changes
+  useEffect(() => {
+    getValue({
+      name: "checksReceived",
+      values: { ...inputs, amount: totalAmount },
+    });
+  }, [totalAmount]);
 
   return (
     <Card>
@@ -85,21 +102,23 @@ export default function ChecksReceived({ getValue }) {
         ))}
       </CustomTable>
       <div>
-        <button
-          type="button"
-          className=" bg-blue-600 text-white py-2 px-3 rounded-lg outline-none"
+        <Button
+          className={"bg-blue-600 text-white"}
+          type={"button"}
           onClick={() => addInput()}
         >
           Add more check
-        </button>
+        </Button>
       </div>
 
-      <p>
-        Total Che ks: <span>{totalChecks}</span>
-      </p>
-      <p>
-        Total Amount: <span>${totalAmount.toFixed(2)}</span>
-      </p>
+      <div className=" py-3">
+        <CountCard>
+          Total Checks: <span>{totalChecks}</span>
+        </CountCard>
+        <CountCard>
+          Total Amount: <span>${totalAmount.toFixed(2)}</span>
+        </CountCard>
+      </div>
     </Card>
   );
 }

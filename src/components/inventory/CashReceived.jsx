@@ -3,6 +3,7 @@ import CustomInput from "../common/CustomInput";
 import Card from "../common/Card";
 import CustomTable from "../common/CustomTable";
 import useInput from "../../hooks/useInput";
+import CountCard from "./CountCard";
 
 export default function CashReceived({ getValue }) {
   const bills = ["100", "50", "20", "10", "5", "1"];
@@ -60,11 +61,18 @@ export default function CashReceived({ getValue }) {
     return acc + (isNaN(quantity) ? 0 : quantity);
   }, 0);
 
-  getValue("cashReceived", {
-    ...quantities,
-    ...amounts,
-  });
+  // getValue("cashReceived", {
+  //   ...quantities,
+  //   ...amounts,
+  // });
 
+  // Call getValue only when totalAmount changes
+  useEffect(() => {
+    getValue({
+      name: "cashReceived",
+      values: { ...quantities, ...amounts, amount: totalAmount },
+    });
+  }, [totalAmount]);
   return (
     <Card>
       <CustomTable
@@ -98,12 +106,14 @@ export default function CashReceived({ getValue }) {
           </React.Fragment>
         ))}
       </CustomTable>
-      <p>
-        Total Bills Count: <span>{totalQuantities}</span>
-      </p>
-      <p>
-        Total Amount: <span>${totalAmount.toFixed(2)}</span>
-      </p>
+      <div className=" py-3">
+        <CountCard>
+          Total Bills Count: <span>{totalQuantities}</span>
+        </CountCard>
+        <CountCard>
+          Total Amount: <span>${totalAmount.toFixed(2)}</span>
+        </CountCard>
+      </div>
     </Card>
   );
 }

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 import CustomInput from "../common/CustomInput";
 import Card from "../common/Card";
 import CustomTable from "../common/CustomTable";
 import useInput from "../../hooks/useInput";
+import CountCard from "./CountCard";
 
 export default function CashFromOnlineApp({ getValue }) {
   const platforms = ["Cash App", "Zelle"];
@@ -16,13 +17,19 @@ export default function CashFromOnlineApp({ getValue }) {
     }, {})
   );
 
-  // Calculate total amount
+  // // Calculate total amount
   const totalAmount = platforms.reduce((acc, platform) => {
     const amount = parseFloat(values[`${platform}amount`]) || 0;
     return acc + amount;
   }, 0);
 
-  getValue("cashFromOnlineApps", values);
+  // Call getValue only when totalAmount changes
+  useEffect(() => {
+    getValue({
+      name: "cashFromOnlineApps",
+      values: { ...values, amount: totalAmount },
+    });
+  }, [totalAmount]);
 
   return (
     <Card>
@@ -39,6 +46,7 @@ export default function CashFromOnlineApp({ getValue }) {
                 inputClass={""}
                 inputData={{
                   type: "number",
+                  min: 1,
                   placeholder: "amount",
                   name: `${platform}amount`,
                   value: values[`${platform}amount`], // Set the value from the hook
@@ -49,7 +57,11 @@ export default function CashFromOnlineApp({ getValue }) {
           </React.Fragment>
         ))}
       </CustomTable>
-      Total Amount: <span>${totalAmount.toFixed(2)}</span>
+      <div className=" py-3">
+        <CountCard>
+          Total Amount: <span>${totalAmount.toFixed(2)}</span>
+        </CountCard>
+      </div>
     </Card>
   );
 }

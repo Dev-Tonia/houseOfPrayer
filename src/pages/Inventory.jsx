@@ -5,23 +5,41 @@ import ChecksReceived from "../components/inventory/ChecksReceived";
 import Heading from "../components/inventory/Heading";
 import CashFromMinistries from "../components/inventory/CashFromMinistries";
 import CashFromOnlineApp from "../components/inventory/CashFromOnlineApp";
+import FormFooter from "../components/inventory/FormFooter";
+import Button from "../components/common/Button";
+import CountCard from "../components/inventory/CountCard";
 export default function Inventory() {
-  const formData = {
+  const [formData, setFormData] = useState({
     eventDetails: {},
     cashReceived: {},
     cashFromOnlineApps: {},
     checksReceived: {},
     cashFromMinistries: {},
+    countedBy: {},
+  });
+
+  const getInputValues = ({ name, values }) => {
+    setFormData((prevFormData) => {
+      return {
+        ...prevFormData,
+        [name]: { ...values },
+      };
+    });
   };
 
-  const getInputValues = (name, value) => {
-    formData[`${name}`] = { ...value };
-  };
+  const totalAmount = [
+    "cashReceived",
+    "cashFromOnlineApps",
+    "checksReceived",
+    "cashFromMinistries",
+  ]
+    .map((key) => formData[key].amount)
+    .reduce((acc, amount) => acc + amount, 0);
 
+  console.log(totalAmount); // 3222
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form Data:", formData);
-    alert(JSON.stringify(formData));
   };
 
   return (
@@ -39,7 +57,20 @@ export default function Inventory() {
           <ChecksReceived getValue={getInputValues} />
           {/* Cash from ministries */}
           <CashFromMinistries getValue={getInputValues} />
-          <button type="submit">submit</button>
+          {/* Counted by */}
+          <FormFooter getValue={getInputValues}>
+            <div className=" pt-3">
+              <CountCard>
+                Total Amount : <span>${totalAmount.toFixed(2)}</span>
+              </CountCard>
+            </div>
+            <Button
+              className={"bg-red-600 text-white mt-5 w-full sm:w-7/12"}
+              type={"submit"}
+            >
+              Submit
+            </Button>
+          </FormFooter>
         </form>
       </section>
     </>
