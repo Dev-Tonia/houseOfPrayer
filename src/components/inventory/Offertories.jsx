@@ -5,10 +5,10 @@ import CustomTable from "../common/CustomTable";
 import Button from "../common/Button";
 import CountCard from "./CountCard";
 
-export default function CashFromMinistries({ getValue }) {
-  const tableHeader = ["Amount", " Ministry", ""];
+export default function Offertories({ getValue }) {
+  const tableHeader = ["Amount", " Purpose", ""];
 
-  const [inputs, setInputs] = useState([{ id: 1, ministry: "", amt: "" }]);
+  const [inputs, setInputs] = useState([{ id: 1, OfferingType: "", amt: "" }]);
 
   // Handle input changes
   const handleChange = (e, id) => {
@@ -22,16 +22,17 @@ export default function CashFromMinistries({ getValue }) {
 
   // Add new input row
   const addInput = () => {
-    setInputs([...inputs, { id: inputs.length + 1, ministry: "", amt: "" }]);
+    setInputs([
+      ...inputs,
+      { id: inputs.length + 1, OfferingType: "", amt: "" },
+    ]);
   };
 
   // Calculate total number of ministries and total amount
-  const totalMinistries = inputs.filter(
-    (input) => input.ministry.trim() && input.amt.trim() !== ""
-  ).length;
+
   const totalAmount = inputs.reduce((acc, input) => {
     let amount;
-    if (input.ministry.trim() && input.amt.trim() !== "") {
+    if (input.OfferingType.trim() && input.amt.trim() !== "") {
       amount = parseFloat(input.amt);
     }
     return acc + (isNaN(amount) ? 0 : amount);
@@ -40,7 +41,7 @@ export default function CashFromMinistries({ getValue }) {
   // Call getValue only when totalAmount changes
   useEffect(() => {
     getValue({
-      name: "cashFromMinistries",
+      name: "Offertories",
       values: { ...inputs, amount: totalAmount },
     });
   }, [totalAmount]);
@@ -51,7 +52,7 @@ export default function CashFromMinistries({ getValue }) {
         <CustomTable
           headers={tableHeader}
           tableClass={"grid-cols-3"}
-          title={"Income from other ministries Included in the deposit "}
+          title={"Offering Purpose "}
         >
           {inputs.map((inputEl, index) => (
             <React.Fragment key={index + 1}>
@@ -72,9 +73,9 @@ export default function CashFromMinistries({ getValue }) {
                 <CustomInput
                   inputClass={"w-full"}
                   inputData={{
-                    placeholder: "ministry name",
-                    name: `ministry`,
-                    value: `${inputEl.ministry}`,
+                    placeholder: "OfferingType name",
+                    name: `OfferingType`,
+                    value: `${inputEl.OfferingType}`,
                   }}
                   onChange={(e) => handleChange(e, inputEl.id)}
                 />
@@ -84,17 +85,14 @@ export default function CashFromMinistries({ getValue }) {
         </CustomTable>
         <div>
           <Button
-            className={"bg-primary text-white"}
+            className={"bg-[#04367D] text-white"}
             type={"button"}
             onClick={() => addInput()}
           >
-            Add more Ministry
+            Add more Offering Type
           </Button>
         </div>
         <div className=" py-3">
-          <CountCard>
-            Total Ministry: <span>{totalMinistries}</span>
-          </CountCard>
           <CountCard>
             Total Amount: <span>${totalAmount.toFixed(2)}</span>
           </CountCard>

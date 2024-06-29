@@ -3,7 +3,7 @@ import useInput from "../../hooks/useInput";
 import Card from "../common/Card";
 import CustomInput from "../common/CustomInput";
 
-export default function FormFooter({ getValue, children }) {
+export default function CountedBy({ getValue, children }) {
   // Initialize input values for each bill
   const { values, handleChange } = useInput({
     finSec1: "",
@@ -28,7 +28,7 @@ export default function FormFooter({ getValue, children }) {
             inputData={{
               placeholder: "",
               name: "finSec1",
-              label: "Financial Secretary 1",
+              label: "Name",
               value: `${values.finSec1}`,
             }}
             onChange={handleChange}
@@ -38,7 +38,7 @@ export default function FormFooter({ getValue, children }) {
             inputData={{
               placeholder: "",
               name: "finSec2",
-              label: "Financial Secretary 2",
+              label: "Name",
               value: `${values.finSec2}`,
             }}
             onChange={handleChange}

@@ -93,6 +93,7 @@ export default function ChecksReceived({ getValue }) {
               inputData={{
                 type: "number",
                 placeholder: "Check Amount",
+                min: 0,
                 name: `checkAmt`,
                 value: `${inputEl.checkAmt}`,
               }}
@@ -103,7 +104,7 @@ export default function ChecksReceived({ getValue }) {
       </CustomTable>
       <div>
         <Button
-          className={"bg-blue-600 text-white"}
+          className={"bg-[#04367D] text-white"}
           type={"button"}
           onClick={() => addInput()}
         >

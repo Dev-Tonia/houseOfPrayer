@@ -46,7 +46,7 @@ export default function CashFromOnlineApp({ getValue }) {
                 inputClass={""}
                 inputData={{
                   type: "number",
-                  min: 1,
+                  min: 0,
                   placeholder: "amount",
                   name: `${platform}amount`,
                   value: values[`${platform}amount`], // Set the value from the hook

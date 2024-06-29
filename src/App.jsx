@@ -1,10 +1,15 @@
 import React from "react";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./route";
+
 import Inventory from "./pages/Inventory";
 
 export default function App() {
   return (
-    <main className="bg-[#F2F2F2] ">
-      <Inventory />
-    </main>
+    <>
+      <RouterProvider router={router} />
+
+      {/* <Inventory /> */}
+    </>
   );
 }

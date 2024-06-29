@@ -5,17 +5,22 @@ import ChecksReceived from "../components/inventory/ChecksReceived";
 import Heading from "../components/inventory/Heading";
 import CashFromMinistries from "../components/inventory/CashFromMinistries";
 import CashFromOnlineApp from "../components/inventory/CashFromOnlineApp";
-import FormFooter from "../components/inventory/FormFooter";
+import CountedBy from "../components/inventory/CountedBy";
 import Button from "../components/common/Button";
 import CountCard from "../components/inventory/CountCard";
+import Offertories from "../components/inventory/Offertories";
+import DepositedBy from "../components/inventory/DepositedBy";
+
 export default function Inventory() {
   const [formData, setFormData] = useState({
     eventDetails: {},
     cashReceived: {},
+    Offertories: {},
     cashFromOnlineApps: {},
     checksReceived: {},
     cashFromMinistries: {},
     countedBy: {},
+    depositedBy: {},
   });
 
   const getInputValues = ({ name, values }) => {
@@ -28,7 +33,7 @@ export default function Inventory() {
   };
 
   const totalAmount = [
-    "cashReceived",
+    "Offertories",
     "cashFromOnlineApps",
     "checksReceived",
     "cashFromMinistries",
@@ -36,7 +41,6 @@ export default function Inventory() {
     .map((key) => formData[key].amount)
     .reduce((acc, amount) => acc + amount, 0);
 
-  console.log(totalAmount); // 3222
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form Data:", formData);
@@ -51,6 +55,7 @@ export default function Inventory() {
           <EventDetails getValue={getInputValues} />
           {/* cash received */}
           <CashReceived getValue={getInputValues} />
+          <Offertories getValue={getInputValues} />
           {/* Cash from online apps */}
           <CashFromOnlineApp getValue={getInputValues} />
           {/* Checks received */}
@@ -58,19 +63,20 @@ export default function Inventory() {
           {/* Cash from ministries */}
           <CashFromMinistries getValue={getInputValues} />
           {/* Counted by */}
-          <FormFooter getValue={getInputValues}>
+          <CountedBy getValue={getInputValues}>
             <div className=" pt-3">
               <CountCard>
                 Total Amount : <span>${totalAmount.toFixed(2)}</span>
               </CountCard>
             </div>
+            <DepositedBy getValue={getInputValues} />
             <Button
               className={"bg-red-600 text-white mt-5 w-full sm:w-7/12"}
               type={"submit"}
             >
               Submit
             </Button>
-          </FormFooter>
+          </CountedBy>
         </form>
       </section>
     </>

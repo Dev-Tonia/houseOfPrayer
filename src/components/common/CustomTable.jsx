@@ -1,5 +1,3 @@
-import React, { Children } from "react";
-
 export default function CustomTable({ headers, children, tableClass, title }) {
   return (
     <div className="  min-w-[350px] ">

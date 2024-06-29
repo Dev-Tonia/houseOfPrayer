@@ -61,11 +61,6 @@ export default function CashReceived({ getValue }) {
     return acc + (isNaN(quantity) ? 0 : quantity);
   }, 0);
 
-  // getValue("cashReceived", {
-  //   ...quantities,
-  //   ...amounts,
-  // });
-
   // Call getValue only when totalAmount changes
   useEffect(() => {
     getValue({
@@ -87,7 +82,7 @@ export default function CashReceived({ getValue }) {
               inputClass=""
               inputData={{
                 placeholder: "Quantity",
-                min: 1,
+                min: 0,
                 type: "number",
                 name: `${bill}input`,
                 value: quantities[`${bill}input`],
