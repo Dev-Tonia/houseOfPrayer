@@ -66,16 +66,18 @@ export default function Inventory() {
           <CountedBy getValue={getInputValues}>
             <div className=" pt-3">
               <CountCard>
-                Total Amount : <span>${totalAmount.toFixed(2)}</span>
+                Total Amount Received: <span>${totalAmount.toFixed(2)}</span>
               </CountCard>
             </div>
             <DepositedBy getValue={getInputValues} />
-            <Button
-              className={"bg-red-600 text-white mt-5 w-full sm:w-7/12"}
-              type={"submit"}
-            >
-              Submit
-            </Button>
+            <div className=" py-10 flex items-center justify-center">
+              <Button
+                className={"bg-red-600 text-white w-full  sm:w-7/12"}
+                type={"submit"}
+              >
+                Submit
+              </Button>
+            </div>
           </CountedBy>
         </form>
       </section>

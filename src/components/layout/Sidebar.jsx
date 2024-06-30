@@ -6,8 +6,8 @@ import logo from "../../assets/img/brand-logo-removebg-preview.png";
 
 const expenseManagement = [
   {
-    title: "Expense",
-    link: "/expense",
+    title: "Expenses",
+    link: "/expenses",
   },
   {
     title: "Expense Overview",
