@@ -3,7 +3,7 @@ import Card from "../common/Card";
 import CustomInput from "../common/CustomInput";
 import CustomTable from "../common/CustomTable";
 import Button from "../common/Button";
-import CountCard from "./CountCard";
+import CountCard from "../common/CountCard";
 
 export default function ChecksReceived({ getValue }) {
   const tableHeader = ["Check No", "Contributor", "Amount"];

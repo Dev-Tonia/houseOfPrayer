@@ -14,6 +14,16 @@ const expenseManagement = [
     link: "/expense-overview",
   },
 ];
+const collectionManagement = [
+  {
+    title: "Collection",
+    link: "/collection",
+  },
+  {
+    title: "Collection Overview",
+    link: "/collection-overview",
+  },
+];
 
 export default function Sidebar({ isSidebarOpen, updateIsOpen }) {
   return (
@@ -46,22 +56,6 @@ export default function Sidebar({ isSidebarOpen, updateIsOpen }) {
                   >
                     <div className="bg-white shadow-lg text-dark-700 w-8 h-8 p-1.5 mr-1 rounded-lg flex items-center justify-center">
                       <Icon
-                        icon="fluent:collections-24-filled"
-                        className="text-4xl font-bold text-primary"
-                      />
-                    </div>
-                    <span className="ml-3 text-dark-500 text-sm font-medium">
-                      Collections
-                    </span>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/dashboard"
-                    className="flex items-center py-2.5 px-4 text-base font-normal text-dark-500 rounded-lg hover:bg-gray-200 group transition-all duration-200"
-                  >
-                    <div className="bg-white shadow-lg text-dark-700 w-8 h-8 p-1.5 mr-1 rounded-lg flex items-center justify-center">
-                      <Icon
                         icon="mage:dashboard-fill"
                         className="text-4xl font-bold text-primary"
                       />
@@ -71,13 +65,16 @@ export default function Sidebar({ isSidebarOpen, updateIsOpen }) {
                     </span>
                   </Link>
                 </li>
-
+                <SidebarItem
+                  title="Collections Management"
+                  list={collectionManagement}
+                  icon="fluent:collections-24-filled"
+                />
                 <SidebarItem
                   title="Expense Management"
                   list={expenseManagement}
                   icon="uil:transaction"
                 />
-
                 <li>
                   <Link
                     to="/agent/profile"

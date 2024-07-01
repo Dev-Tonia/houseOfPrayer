@@ -67,7 +67,7 @@ export default function TransactionTable() {
       <CustomTable
         headers={tableHeader}
         tableClass={"grid-cols-6"}
-        tableMinWidth={"min-w-[550px]"}
+        tableMinWidth={"min-w-[600px]"}
         title={"Transaction Table"}
       >
         {txns.map((txn) => (

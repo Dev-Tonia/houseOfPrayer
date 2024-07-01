@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import EventDetails from "../components/inventory/EventDetails";
 import CashReceived from "../components/inventory/CashReceived";
 import ChecksReceived from "../components/inventory/ChecksReceived";
-import Heading from "../components/inventory/Heading";
+import Heading from "../components/common/Heading";
 import CashFromMinistries from "../components/inventory/CashFromMinistries";
 import CashFromOnlineApp from "../components/inventory/CashFromOnlineApp";
 import CountedBy from "../components/inventory/CountedBy";
 import Button from "../components/common/Button";
-import CountCard from "../components/inventory/CountCard";
+import CountCard from "../components/common/CountCard";
 import Offertories from "../components/inventory/Offertories";
 import DepositedBy from "../components/inventory/DepositedBy";
 
@@ -49,7 +49,10 @@ export default function Inventory() {
   return (
     <>
       <section className=" max-w-[600px] px-3 min-[500px]:px-5 sm:px-0 pb-10 mx-auto">
-        <Heading />
+        <Heading
+          title={" House Of Prayer Collection"}
+          subtitle={" Collection count for tithe and offering"}
+        />
         <form onSubmit={handleSubmit}>
           {/* event details */}
           <EventDetails getValue={getInputValues} />

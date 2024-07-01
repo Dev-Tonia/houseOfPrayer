@@ -3,7 +3,7 @@ import CustomInput from "../common/CustomInput";
 import Card from "../common/Card";
 import CustomTable from "../common/CustomTable";
 import useInput from "../../hooks/useInput";
-import CountCard from "./CountCard";
+import CountCard from "../common/CountCard";
 
 export default function CashFromOnlineApp({ getValue }) {
   const platforms = ["Cash App", "Zelle"];
