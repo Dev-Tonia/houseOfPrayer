@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import SidebarItem from "./SidebarItem";
@@ -7,24 +6,25 @@ import logo from "../../assets/img/brand-logo-removebg-preview.png";
 const expenseManagement = [
   {
     title: "Expenses",
-    link: "/expenses",
+    link: "/dashboard/expenses",
   },
   {
     title: "Expense Overview",
-    link: "/expense-overview",
+    link: "/dashboard/expense-overview",
   },
 ];
 const collectionManagement = [
   {
     title: "Collection",
-    link: "/collection",
+    link: "/dashboard/collection",
   },
   {
     title: "Collection Overview",
-    link: "/collection-overview",
+    link: "/dashboard/collection-overview",
   },
 ];
 
+// eslint-disable-next-line react/prop-types
 export default function Sidebar({ isSidebarOpen, updateIsOpen }) {
   return (
     <>
@@ -51,7 +51,7 @@ export default function Sidebar({ isSidebarOpen, updateIsOpen }) {
               <ul className="pb-2 pt-1">
                 <li>
                   <Link
-                    to="/"
+                    to="/dashboard"
                     className="flex items-center py-2.5 px-4 text-base font-normal text-dark-500 rounded-lg hover:bg-gray-200 group transition-all duration-200"
                   >
                     <div className="bg-white shadow-lg text-dark-700 w-8 h-8 p-1.5 mr-1 rounded-lg flex items-center justify-center">

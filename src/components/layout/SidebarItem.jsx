@@ -1,9 +1,10 @@
 // SidebarItem.js
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 
+// eslint-disable-next-line react/prop-types
 const SidebarItem = ({ title, list, icon }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -29,7 +30,7 @@ const SidebarItem = ({ title, list, icon }) => {
             <li key={index}>
               <Link
                 to={item.link}
-                className="flex items-center py-2 px-4 text-base font-normal text-dark-500 rounded-lg hover:bg-gray-200 group transition-all duration-200"
+                className="flex items-center py-2 px-4 text-sm font-medium text-dark-500 rounded-lg hover:bg-gray-200 group transition-all duration-200"
               >
                 {item.title}
               </Link>
